@@ -1,0 +1,21 @@
+---
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" }
+];
+---
+
+<nav class="bg-gray-900 text-white p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="/" class="text-xl font-bold">Astro</a>
+    <ul class="flex space-x-4">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="hover:text-gray-300">{link.name}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
