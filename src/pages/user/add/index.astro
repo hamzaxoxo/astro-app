@@ -1,16 +1,17 @@
 ---
 import MainLayout from "../../../layout/Layout.astro";
 import UserForm from "../../../components/UserForm";
+import { getDefaultAvatar } from "../../../utils/api";
+
+const defaultAvatar = await getDefaultAvatar();
 ---
 
 <MainLayout title="User Profile">
-  <div
-    class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 border border-gray-200"
-  >
+  <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 border border-gray-200">
     <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">
       User Profile
     </h2>
     
-    <UserForm client:load />
+    <UserForm client:load defaultAvatar={defaultAvatar} />
   </div>
 </MainLayout>

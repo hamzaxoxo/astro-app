@@ -2,8 +2,8 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import AvatarSelector from "./AvatarSelector";
 
-export default function UserForm() {
-    const [selectedAvatar, setSelectedAvatar] = useState("https://via.placeholder.com/120");
+export default function UserForm({ defaultAvatar }: { defaultAvatar: string }) {
+    const [selectedAvatar, setSelectedAvatar] = useState(defaultAvatar);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         fullName: "",
@@ -17,7 +17,7 @@ export default function UserForm() {
         skills: "",
         accountType: "",
         socialLinks: "",
-        avatarId: "",
+        avatarId: defaultAvatar,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -28,7 +28,6 @@ export default function UserForm() {
             avatarId: selectedAvatar,
         }));
     };
-    
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,7 +36,7 @@ export default function UserForm() {
             return toast.error("Username and Email are required!");
         }
         try {
-            const response = await fetch("https://express-boiler-plate.vercel.app/api/users", {
+            const response = await fetch("/api/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -45,12 +44,11 @@ export default function UserForm() {
             if (!response.ok) {
                 throw new Error("An error occurred, please try again later!");
             }
-
             toast.success("Profile saved successfully! 🎉");
             setLoading(false);
         } catch (error: any) {
             setLoading(false);
-            toast.error(error?.message)
+            toast.error(error?.message);
         }
     };
 
@@ -128,7 +126,7 @@ export default function UserForm() {
                         type="submit"
                         className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
                     >
-                       {loading ? "Saving..." : "Save Profile"}
+                        {loading ? "Saving..." : "Save Profile"}
                     </button>
                 </div>
             </form>
@@ -136,3 +134,11 @@ export default function UserForm() {
         </>
     );
 }
+
+export const getServerSideProps = async () => {
+    return {
+        props: {
+            defaultAvatar: "https://via.placeholder.com/120",
+        },
+    };
+};
