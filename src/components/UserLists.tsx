@@ -74,8 +74,12 @@ const UsersList = () => {
   return (
     <>
       <div className="max-w-7xl mx-auto p-5">
-        <h1 className="text-3xl font-bold mb-4">Users</h1>
-
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-3xl font-bold mb-4">Users</h1>
+          <a href="/user/add" className="px-4 py-2 rounded-lg bg-gray-200 font-medium text-[#849FFF]">
+            Add User
+          </a>
+        </div>
         <div className="mb-4 flex flex-wrap justify-between items-center gap-4">
           <div className="relative flex w-full items-center gap-4">
             <input
@@ -85,7 +89,7 @@ const UsersList = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="border border-gray-300 !p-4 !pl-20 rounded-md w-full md:w-1/2"
             />
-            <IoSearch size={40} className="absolute left-6"/>
+            <IoSearch size={40} className="absolute left-6" />
           </div>
 
           <div className="flex flex-wrap gap-3">
